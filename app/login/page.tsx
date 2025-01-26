@@ -17,14 +17,18 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col justify-center items-center gap-4 px-2 pt-6 pb-10 bg-card border rounded-lg shadow-lg w-full max-w-72">
-        <h1 className="font-bold text-2xl text-center">Login</h1>
-        <p className="text-sm text-gray-500">welcome to chat!</p>
-        <Button
-          onClick={handleLoginWithGithub}
-          className="flex items-center gap-2 justify-center"
-        >
-          <GithubLogo weight="bold" /> Login with Github
+      <div className="flex flex-col justify-center items-center gap-4 py-8 px-2  bg-card border rounded-lg shadow-lg w-full max-w-72">
+        <div className="flex flex-col justify-center items-center">
+          <h1 className="font-bold text-2xl text-center">Login</h1>
+          <h2 className="font-bold">bem-vindo ao chat!</h2>
+        </div>
+
+        <p className="text-sm text-muted-foreground mb-2">
+          Faça login para enviar mensagens
+        </p>
+
+        <Button onClick={handleLoginWithGithub}>
+          <GithubLogo weight="bold" /> Login com Github
         </Button>
       </div>
     </div>
