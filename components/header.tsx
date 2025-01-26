@@ -25,11 +25,11 @@ export default function Header({ user }: { user: User | null }) {
 
   return (
     <header>
-      <div className="flex justify-between items-center py-2 px-6">
-        <div className="flex gap-2 justify-center items-center ">
+      <div className="flex justify-between items-center py-2 px-8 bg-card border-b">
+        <div>
           <span className="font-bold">Chat App</span>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <ModeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
