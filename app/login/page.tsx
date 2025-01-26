@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { supabaseBrowser } from '@/utils/supabase/client';
+import { supabaseBrowser } from '@/lib/supabase/client';
 import { GithubLogo } from 'phosphor-react';
 
 export default function LoginPage() {

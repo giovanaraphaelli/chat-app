@@ -1,6 +1,6 @@
 'use client';
 
-import { supabaseBrowser } from '@/utils/supabase/client';
+import { supabaseBrowser } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { UserIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
@@ -37,7 +37,7 @@ export default function Header({ user }: { user: User | null }) {
                 <Avatar className="h-9 w-9">
                   <AvatarImage
                     src={user?.user_metadata?.avatar_url}
-                    alt={user?.user_metadata?.name}
+                    alt={`Imagem de ${user?.user_metadata?.name}`}
                   />
                   <AvatarFallback>
                     <UserIcon />
@@ -49,7 +49,7 @@ export default function Header({ user }: { user: User | null }) {
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none">
-                    {user?.user_metadata?.name}
+                    {user?.user_metadata?.user_name}
                   </p>
                   <p className="text-xs leading-none text-muted-foreground">
                     {user?.user_metadata?.email}

@@ -2,6 +2,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 const spaceGroteskSans = Space_Grotesk({
   variable: '--font-space-grotesk-sans',
@@ -28,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

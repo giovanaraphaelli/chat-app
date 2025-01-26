@@ -1,4 +1,4 @@
-import { supabaseServer } from '@/utils/supabase/server';
+import { supabaseServer } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 // The client you created from the Server-Side Auth instructions
 
