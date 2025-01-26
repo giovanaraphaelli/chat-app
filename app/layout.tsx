@@ -1,8 +1,7 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import Navbar from '@/components/nav-bar';
 
 const spaceGroteskSans = Space_Grotesk({
   variable: '--font-space-grotesk-sans',
@@ -28,10 +27,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="max-w-3xl mx-auto py-3 md:py-10 h-[calc(100vh-3.6rem)] p-1">
-            {children}
-          </main>
+          {children}
         </ThemeProvider>
       </body>
     </html>
