@@ -37,7 +37,7 @@ export default function ChatInput() {
     }
   }
   return (
-    <div className="p-5">
+    <div className="p-4 h-[70px] border-t">
       <Input
         placeholder="envie uma mensagem"
         onKeyDown={(e) => {

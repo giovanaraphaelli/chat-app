@@ -10,11 +10,22 @@ export default async function Home() {
 
   return (
     <>
-      <Header user={data.user} />
-      <main className="max-w-3xl mx-auto py-3 md:py-10 h-[calc(100vh-3.6rem)] p-1">
-        <div className="h-full border rounded-md bg-card flex flex-col ">
-          <ChatMessages />
-          <ChatInput />
+      <main className="flex justify-center items-center min-h-screen p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_3fr] border rounded bg-card w-full max-w-4xl h-[35rem]">
+          <div className="flex flex-col h-full border-r">
+            <ul className="flex-1 hidden sm:block p-4">
+              <li>user 1</li>
+              <li>user 2</li>
+              <li>user 3</li>
+            </ul>
+
+            <Header />
+          </div>
+
+          <div className="flex flex-col h-full overflow-y-auto">
+            <ChatMessages />
+            <ChatInput />
+          </div>
         </div>
       </main>
       <InitUser user={data.user} />

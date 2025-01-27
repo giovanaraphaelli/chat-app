@@ -1,67 +1,22 @@
 'use client';
 
-import { supabaseBrowser } from '@/lib/supabase/client';
-import { User } from '@supabase/supabase-js';
-import { UserIcon } from 'lucide-react';
-import { redirect } from 'next/navigation';
-import { ModeToggle } from './mode-toggle';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+import { useUser } from '@/lib/store/user';
+import { AccountMenu } from './account-menu';
 
-export default function Header({ user }: { user: User | null }) {
-  function handleLogout() {
-    const supabase = supabaseBrowser();
-    supabase.auth.signOut();
-    redirect('/login');
-  }
+export default function Header() {
+  const user = useUser((state) => state.user);
 
   return (
-    <header>
-      <div className="flex justify-between items-center py-2 px-8 bg-card border-b">
-        <div>
-          <span className="font-bold">Chat App</span>
-        </div>
-        <div className="flex gap-2">
-          <ModeToggle />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src={user?.user_metadata?.avatar_url}
-                    alt={`Imagem de ${user?.user_metadata?.name}`}
-                  />
-                  <AvatarFallback>
-                    <UserIcon />
-                  </AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end" forceMount>
-              <DropdownMenuLabel className="font-normal">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {user?.user_metadata?.user_name}
-                  </p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {user?.user_metadata?.email}
-                  </p>
-                </div>
-              </DropdownMenuLabel>
+    <header className="flex items-center justify-start h-[70px] p-2 border-b sm:border-t sm:border-b-0 gap-2">
+      <AccountMenu />
 
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold ">
+          {user?.user_metadata?.name}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          {user?.user_metadata?.user_name}
+        </span>
       </div>
     </header>
   );
