@@ -2,6 +2,7 @@
 
 import { useMessages } from '@/lib/store/messages';
 import { Message } from './message';
+import { DeleteAlert } from './message-actions';
 
 export function ListMessages() {
   const messages = useMessages((state) => state.messages);
@@ -12,6 +13,7 @@ export function ListMessages() {
           return <Message key={index} message={value} />;
         })}
       </div>
+      <DeleteAlert />
     </div>
   );
 }

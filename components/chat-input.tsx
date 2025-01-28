@@ -9,7 +9,7 @@ import { IMessage, useMessages } from '@/lib/store/messages';
 
 export default function ChatInput() {
   const user = useUser((state) => state.user);
-  const addMessages = useMessages((state) => state.addMessages);
+  const addMessages = useMessages((state) => state.optimisticAddMessages);
   const supabase = supabaseBrowser();
 
   async function handleSendMessage(text: string) {
@@ -34,6 +34,8 @@ export default function ChatInput() {
       if (error) {
         toast.error(error.message);
       }
+    } else {
+      toast.error('A mensagem não pode estar vazia!');
     }
   }
   return (
