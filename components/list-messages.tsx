@@ -2,14 +2,17 @@
 'use client';
 
 import { IMessage, useMessages } from '@/lib/store/messages';
+import { supabaseBrowser } from '@/lib/supabase/client';
+import { ArrowDown } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 import { Message } from './message';
 import { DeleteAlert, EditAlert } from './message-actions';
-import { useEffect, useRef } from 'react';
-import { supabaseBrowser } from '@/lib/supabase/client';
-import { toast } from 'sonner';
+import { Button } from './ui/button';
 
 export function ListMessages() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [userScrolled, setUserScrolled] = useState(false);
 
   const {
     messages,
@@ -19,6 +22,22 @@ export function ListMessages() {
     optimisticUpdateMessage,
   } = useMessages((state) => state);
   const supabase = supabaseBrowser();
+
+  function handleOnScroll() {
+    const scrollContainer = scrollRef.current;
+    if (scrollContainer) {
+      const isScroll =
+        scrollContainer.scrollTop <
+        scrollContainer.scrollHeight - scrollContainer.clientHeight - 10;
+      setUserScrolled(isScroll);
+    }
+  }
+
+  function scrollDown() {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }
 
   useEffect(() => {
     const chanel = supabase
@@ -74,12 +93,21 @@ export function ListMessages() {
     <div
       className="flex-1 flex flex-col p-2 overflow-y-auto h-full m-2"
       ref={scrollRef}
+      onScroll={handleOnScroll}
     >
       <div className="space-y-5">
         {messages.map((value, index) => {
           return <Message key={index} message={value} />;
         })}
       </div>
+      {userScrolled && (
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
+          <Button size="icon" onClick={scrollDown}>
+            <ArrowDown />
+          </Button>
+        </div>
+      )}
+
       <DeleteAlert />
       <EditAlert />
     </div>

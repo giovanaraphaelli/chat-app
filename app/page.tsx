@@ -22,7 +22,7 @@ export default async function Home() {
             <Header />
           </div>
 
-          <div className="flex flex-col h-full overflow-y-auto">
+          <div className="flex flex-col h-full overflow-y-auto relative">
             <ChatMessages />
             <ChatInput />
           </div>
