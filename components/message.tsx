@@ -77,7 +77,7 @@ function MessageMenu({ message }: { message: IMessage }) {
             setActionMessage(message);
           }}
         >
-          Apagar
+          Excluir
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

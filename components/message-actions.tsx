@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 'use client';
 
 import {
@@ -21,7 +22,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useMessages } from '@/lib/store/messages';
+import { IMessage, useMessages } from '@/lib/store/messages';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { useRef } from 'react';
 import { toast } from 'sonner';
@@ -34,19 +35,17 @@ export function DeleteAlert() {
 
   async function handleDelete() {
     const supabase = supabaseBrowser();
+    optimisticDeleteMessage(actionMessage?.id!);
 
-    if (actionMessage) {
-      optimisticDeleteMessage(actionMessage?.id);
-      const { error } = await supabase
-        .from('messages')
-        .delete()
-        .eq('id', actionMessage.id);
+    const { error } = await supabase
+      .from('messages')
+      .delete()
+      .eq('id', actionMessage?.id!);
 
-      if (error) {
-        toast.error('Erro ao excluir a mensagem');
-      } else {
-        toast.success('Mensagem excluída com sucesso');
-      }
+    if (error) {
+      toast.error('Erro ao excluir a mensagem');
+    } else {
+      toast.success('Mensagem excluída com sucesso');
     }
   }
   return (
@@ -81,12 +80,16 @@ export function EditAlert() {
 
   async function handleEdit() {
     const text = inputRef.current?.value.trim();
-    if (actionMessage && text) {
-      optimisticUpdateMessage({ ...actionMessage, text, is_edit: true });
+    if (text) {
+      optimisticUpdateMessage({
+        ...actionMessage,
+        text,
+        is_edit: true,
+      } as IMessage);
       const { error } = await supabase
         .from('messages')
         .update({ text, is_edit: true })
-        .eq('id', actionMessage.id);
+        .eq('id', actionMessage?.id!);
 
       if (error) {
         toast.error('Erro ao editar a mensagem');
