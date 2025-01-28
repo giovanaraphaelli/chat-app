@@ -13,6 +13,7 @@ import { Button } from './ui/button';
 export function ListMessages() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [userScrolled, setUserScrolled] = useState(false);
+  const [notification, setNotification] = useState(0);
 
   const {
     messages,
@@ -30,11 +31,18 @@ export function ListMessages() {
         scrollContainer.scrollTop <
         scrollContainer.scrollHeight - scrollContainer.clientHeight - 10;
       setUserScrolled(isScroll);
+      if (
+        scrollContainer.scrollTop ===
+        scrollContainer.scrollHeight - scrollContainer.clientHeight
+      ) {
+        setNotification(0);
+      }
     }
   }
 
   function scrollDown() {
     if (scrollRef.current) {
+      setNotification(0);
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }
@@ -58,6 +66,14 @@ export function ListMessages() {
               const newMessage = { ...payload.new, users: data };
               addMessages(newMessage as IMessage);
             }
+          }
+          const scrollContainer = scrollRef.current;
+          if (
+            scrollContainer &&
+            scrollContainer.scrollTop <
+              scrollContainer.scrollHeight - scrollContainer.clientHeight - 10
+          ) {
+            setNotification((prev) => prev + 1);
           }
         }
       )
@@ -84,7 +100,7 @@ export function ListMessages() {
   useEffect(() => {
     const scrollContainer = scrollRef.current;
 
-    if (scrollContainer) {
+    if (scrollContainer && !userScrolled) {
       scrollContainer.scrollTop = scrollContainer.scrollHeight;
     }
   }, [messages]);
@@ -102,9 +118,17 @@ export function ListMessages() {
       </div>
       {userScrolled && (
         <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
-          <Button size="icon" onClick={scrollDown}>
-            <ArrowDown />
-          </Button>
+          {notification ? (
+            <Button size="sm" onClick={scrollDown}>
+              {notification === 1
+                ? '1 nova mensagem'
+                : `${notification} novas mensagens`}
+            </Button>
+          ) : (
+            <Button size="icon" onClick={scrollDown}>
+              <ArrowDown />
+            </Button>
+          )}
         </div>
       )}
 
