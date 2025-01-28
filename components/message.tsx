@@ -29,15 +29,20 @@ export function Message({ message }: { message: IMessage }) {
         <div className="flex items-start justify-between gap-1">
           <div className="flex items-center justify-between gap-1 flex-wrap">
             <h1 className="font-bold">{message.users?.display_name}</h1>
-            <h2 className="text-xs text-muted-foreground">
-              {new Date(message.created_at).toLocaleString('pt-BR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-              })}
-            </h2>
+            <div className="flex gap-1">
+              <h2 className="text-xs text-muted-foreground">
+                {new Date(message.created_at).toLocaleString('pt-BR', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </h2>
+              {message.is_edit && (
+                <span className="text-xs text-muted-foreground">editada</span>
+              )}
+            </div>
           </div>
           {message.users?.id === user?.id && <MessageMenu message={message} />}
         </div>
@@ -57,7 +62,14 @@ function MessageMenu({ message }: { message: IMessage }) {
       <DropdownMenuContent>
         <DropdownMenuLabel>Opções</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Editar</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            document.getElementById('trigger-edit')?.click();
+            setActionMessage(message);
+          }}
+        >
+          Editar
+        </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
             document.getElementById('trigger-delete')?.click();

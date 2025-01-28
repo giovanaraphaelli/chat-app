@@ -11,8 +11,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 import { useMessages } from '@/lib/store/messages';
 import { supabaseBrowser } from '@/lib/supabase/client';
+import { useRef } from 'react';
 import { toast } from 'sonner';
 
 export function DeleteAlert() {
@@ -32,13 +43,12 @@ export function DeleteAlert() {
         .eq('id', actionMessage.id);
 
       if (error) {
-        toast.error('Erro ao deletar a mensagem');
+        toast.error('Erro ao excluir a mensagem');
       } else {
-        toast.success('Mensagem deletada com sucesso');
+        toast.success('Mensagem excluída com sucesso');
       }
     }
   }
-
   return (
     <AlertDialog>
       <AlertDialogTrigger id="trigger-delete"></AlertDialogTrigger>
@@ -53,10 +63,57 @@ export function DeleteAlert() {
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
           <AlertDialogAction onClick={() => handleDelete()}>
-            Confirmar
+            Excluir mensagem
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
+  );
+}
+
+export function EditAlert() {
+  const actionMessage = useMessages((state) => state.actionMessage);
+  const optimisticUpdateMessage = useMessages(
+    (state) => state.optimisticUpdateMessage
+  );
+  const inputRef = useRef<HTMLInputElement>(null);
+  const supabase = supabaseBrowser();
+
+  async function handleEdit() {
+    const text = inputRef.current?.value.trim();
+    if (actionMessage && text) {
+      optimisticUpdateMessage({ ...actionMessage, text, is_edit: true });
+      const { error } = await supabase
+        .from('messages')
+        .update({ text, is_edit: true })
+        .eq('id', actionMessage.id);
+
+      if (error) {
+        toast.error('Erro ao editar a mensagem');
+      } else {
+        toast.success('Mensagem editada com sucesso');
+      }
+      document.getElementById('trigger-edit')?.click();
+    } else {
+      document.getElementById('trigger-edit')?.click();
+      document.getElementById('trigger-delete')?.click();
+    }
+  }
+
+  return (
+    <Dialog>
+      <DialogTrigger id="trigger-edit"></DialogTrigger>
+      <DialogContent className="w-full">
+        <DialogHeader>
+          <DialogTitle>Editar mensagem</DialogTitle>
+        </DialogHeader>
+
+        <Input ref={inputRef} defaultValue={actionMessage?.text} />
+
+        <DialogFooter>
+          <Button onClick={handleEdit}>Salvar alterações</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

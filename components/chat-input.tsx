@@ -9,7 +9,7 @@ import { IMessage, useMessages } from '@/lib/store/messages';
 
 export default function ChatInput() {
   const user = useUser((state) => state.user);
-  const addMessages = useMessages((state) => state.optimisticAddMessages);
+  const addMessages = useMessages((state) => state.addMessages);
   const supabase = supabaseBrowser();
 
   async function handleSendMessage(text: string) {
