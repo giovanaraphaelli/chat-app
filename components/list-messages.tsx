@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { IMessage, useMessages } from '@/lib/store/messages';
@@ -10,9 +11,13 @@ import { toast } from 'sonner';
 export function ListMessages() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { messages, addMessages, optimisticIds } = useMessages(
-    (state) => state
-  );
+  const {
+    messages,
+    addMessages,
+    optimisticIds,
+    optimisticDeleteMessage,
+    optimisticUpdateMessage,
+  } = useMessages((state) => state);
   const supabase = supabaseBrowser();
 
   useEffect(() => {
@@ -35,6 +40,20 @@ export function ListMessages() {
               addMessages(newMessage as IMessage);
             }
           }
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'DELETE', schema: 'public', table: 'messages' },
+        (payload) => {
+          optimisticDeleteMessage(payload.old.id);
+        }
+      )
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'messages' },
+        (payload) => {
+          optimisticUpdateMessage(payload.new as IMessage);
         }
       )
       .subscribe();
