@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { Message } from './message';
 import { DeleteAlert, EditAlert } from './message-actions';
 import { Button } from './ui/button';
+import LoadMoreMessages from './load-more-messages';
 
 export function ListMessages() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -111,6 +112,9 @@ export function ListMessages() {
       ref={scrollRef}
       onScroll={handleOnScroll}
     >
+      <div className="flex-1 pb-4">
+        <LoadMoreMessages />
+      </div>
       <div className="space-y-5">
         {messages.map((value, index) => {
           return <Message key={index} message={value} />;
