@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chat App
 
-## Getting Started
+Aplicação de chat em tempo real desenvolvida com Next.js e Supabase Realtime.
 
-First, run the development server:
+![Demonstração do projeto](./public/chat.gif)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h4 align="center"><a target="_blank" href="https://chat-app.giovanaraphaelli.tech">Clique para visitar o projeto</a></h4>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Funcionalidades
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Mensagens em tempo real**: Envio e recebimento instantâneos de mensagens.
+- **Autenticação via Github**: Integração com Supabase Auth.
+- **Armazenamento Persistente**: Mensagens armazenadas no PostgreSQL via Supabase.
+- **Editar e excluir mensagens**: Permite modificar ou remover mensagens enviadas.
+- **Visualizar usuários online**: Indica quais usuários estão ativos no chat.
+- **Notificação de nova mensagem**: Alerta para novas mensagens recebidas.
+- **Paginação**: Carregamento eficiente de histórico de mensagens.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📚 Aprendizados
 
-## Learn More
+Durante o desenvolvimento deste projeto, pude explorar alguns conceitos:
 
-To learn more about Next.js, take a look at the following resources:
+- **Autenticação com Supabase Auth**: Configuração de login/logout e gestão de sessões de usuários.
+- **Integração com Supabase Realtime**: Implementação de mensagens instantâneas sem necessidade de recarregar a página.
+- **Gerenciamento de estado com Zustand**: Utilização do Zustand para gerenciar estados globais de forma eficiente.
+- **Manipulação de banco de dados**: Uso de PostgreSQL via Supabase para armazenar e recuperar mensagens.
+- **Experiência do usuário**: Implementação de notificações em tempo real e troca de tema para melhor usabilidade.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Tecnologias Utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js**: Framework React para aplicações modernas com SSR e SSG.
+- **TypeScript**: Superset do JavaScript com tipagem estática.
+- **Supabase**: Plataforma backend baseada em PostgreSQL com Realtime e Auth.
+- **Zustand**: Biblioteca de gerenciamento de estado simples e performática.
+- **Tailwind CSS**: Framework CSS utilitário para estilização eficiente.
+- **ShadCN UI**: Conjunto de componentes estilizados e acessíveis, integrando Radix e Tailwind.
