@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
-      <body className={`${spaceGroteskSans.className} antialiased`}>
+      <body className={`${spaceGroteskSans.className} antialiased relative`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

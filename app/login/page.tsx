@@ -16,21 +16,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="flex flex-col justify-center items-center gap-4 py-8 px-2  bg-card border rounded-lg shadow-lg w-full max-w-72">
-        <div className="flex flex-col justify-center items-center">
-          <h1 className="font-bold text-2xl text-center">Login</h1>
-          <h2 className="font-bold">bem-vindo ao chat!</h2>
+    <div className="flex flex-col justify-between items-center min-h-screen ">
+      <div className="flex flex-col justify-center items-center flex-grow">
+        <div className="flex flex-col justify-center items-center gap-6 py-10 px-8  border rounded-2xl shadow-xl w-full max-w-sm text-center bg-card">
+          <h1 className="font-extrabold text-3xl">Login</h1>
+          <h2 className="text-lg font-medium text-muted-foreground">
+            Bem-vindo ao chat!
+          </h2>
+
+          <p className="text-sm text-muted-foreground">
+            Faça login para enviar mensagens e interagir com outros usuários.
+          </p>
+
+          <Button
+            onClick={handleLoginWithGithub}
+            className=" w-full flex items-center justify-center gap-2"
+          >
+            <GithubLogo weight="bold" size={20} /> Login com Github
+          </Button>
         </div>
-
-        <p className="text-sm text-muted-foreground mb-2">
-          Faça login para enviar mensagens
-        </p>
-
-        <Button onClick={handleLoginWithGithub}>
-          <GithubLogo weight="bold" /> Login com Github
-        </Button>
       </div>
+
+      <span className="text-center text-xs p-4 text-muted-foreground">
+        desenvolvido por{' '}
+        <a
+          href="https://giovanaraphaelli.tech/"
+          target="_blank"
+          className="hover:text-primary transition-colors font-medium"
+        >
+          @giovanaraphaelli
+        </a>
+      </span>
     </div>
   );
 }
